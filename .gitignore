@@ -1,0 +1,6 @@
+.dist/
+.vscode/
+build
+*.txt
+!CMakeLists.txt
+program copy.cpp
