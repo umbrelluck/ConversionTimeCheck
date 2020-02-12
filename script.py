@@ -19,12 +19,16 @@ cmd = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING
     cmake --build ./build --config Release --target all -- -j 14"
 system(cmd)
 
+timeByMethod, methods = {}, [
+    "\"stringstream\"", "\"to_string\"", "\"sprintf\"", "\"custom\"", "\"to_string\"", "\"lexical_cast\"", "\"QString\""]
+
 for i in range(1, 7):
     mini = float("inf")
     fileOutputName = f"output{i}.txt"
     cmd = f"./build/Program {i} {fileInputName} {fileOutputName}"
 
-    for trial in range(1000):
+    # change range when ready
+    for trial in range(10):
         process = subprocess.Popen(
             cmd.split(), stdout=subprocess.PIPE)
         while True:
@@ -39,6 +43,10 @@ for i in range(1, 7):
                 print(s)
 
     print(
-        f"The miniaml time for {i} method is {mini}mcs\n==========================================>\n\n")
-    # rc = process.poll()
-    # system(cmd)
+        f"The miniaml time for {methods[i-1]} method is {mini}mcs\n======================================================>\n\n")
+    timeByMethod[i-1] = mini
+
+print("\n\n======================================================>\n")
+for (key, value) in timeByMethod.items():
+    print(f"The miniaml time for {methods[key-1]} method is {value}mcs")
+print("\n======================================================>\n")

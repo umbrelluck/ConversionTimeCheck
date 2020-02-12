@@ -35,7 +35,7 @@ void readNumbers(std::vector<double> *numbers, std::ifstream *file, std::string 
         (*numbers).push_back(std::stod(value));
     (*file).close();
 }
-void writeNumbers(std::tuple<int, int> *result, std::ofstream *file, std::string path)
+void writeRes(std::tuple<int, int> *result, std::ofstream *file, std::string path)
 {
     (*file).open(path, std::ios_base::app);
     (*file) << std::get<0>(*result) << " " << std::setprecision(10) << (double)std::get<0>(*result) / std::get<1>(*result) << "\n";
@@ -89,7 +89,7 @@ std::tuple<int, int> strSprintf(std::vector<double> *numbers)
     return std::make_tuple(sum, count);
 }
 
-std::tuple<int, int> strOwn(std::vector<double> *numbers)
+std::tuple<int, int> strCustom(std::vector<double> *numbers)
 {
     int sum = 0, count = 0;
     auto start = get_current_time_fenced();
@@ -148,10 +148,10 @@ int main(int argc, char **argv)
     std::tuple<int, int> result;
 
     typedef std::tuple<int, int> (*fn)(std::vector<double> *);
-    fn funcs[] = {strStream, strToString, strSprintf, strOwn, strBoost, strQString};
+    fn funcs[] = {strStream, strToString, strSprintf, strCustom, strBoost, strQString};
     result = funcs[method - 1](&numbers);
 
-    writeNumbers(&result, &outputFile, output);
+    writeRes(&result, &outputFile, output);
     return 0;
 }
 
