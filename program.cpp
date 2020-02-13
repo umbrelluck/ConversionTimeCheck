@@ -128,8 +128,8 @@ int main(int argc, char **argv)
     }
 
     std::vector<double> numbers;
-    std::ofstream outputFile(argv[3]);
-    std::ifstream inputFile(argv[2], std::ios_base::app);
+    std::ofstream outputFile(argv[3], std::ios_base::app);
+    std::ifstream inputFile(argv[2]);
 
     readNumbers(&numbers, &inputFile);
     std::tuple<int, int> result;
