@@ -41,10 +41,11 @@ std::tuple<int, int> strStream(std::vector<double> *numbers)
 {
     int sum = 0, count = 0;
     std::ostringstream ss;
+    ss << std::setprecision(10);
     auto start = get_current_time_fenced();
     for (auto &x : *numbers)
     {
-        ss << std::setprecision(10) << x;
+        ss << x;
         count += 1;
     }
     auto end = get_current_time_fenced();
