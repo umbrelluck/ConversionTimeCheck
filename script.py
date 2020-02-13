@@ -22,10 +22,10 @@ system(cmd)
 timeByMethod, methods = {}, [
     "\"stringstream\"", "\"to_string\"", "\"sprintf\"", "\"custom\"", "\"lexical_cast\"", "\"QString\""]
 
-for i in range(1, 7):
+for i in range(6):
     mini = float("inf")
-    fileOutputName = f"output{i}.txt"
-    cmd = f"./build/Program {i} {fileInputName} {fileOutputName}"
+    fileOutputName = f"output{i+1}.txt"
+    cmd = f"./build/Program {i+1} {fileInputName} {fileOutputName}"
 
     # change range when ready
     for trial in range(10):
@@ -49,4 +49,26 @@ for i in range(1, 7):
 print("\n\n======================================================>\n")
 for (key, value) in timeByMethod.items():
     print(f"The miniaml time for {methods[key]} method is {value}mcs")
+
+results = []
+for i in range(6):
+    fileInputName = f"output{i+1}.txt"
+    with open(fileInputName) as file:
+        lines = file.readlines()
+        for j in range(1, len(lines)):
+            if lines[j] != lines[j-1]:
+                print(f"!!! {methods[i]} is not working correctly !!!")
+        results.append(lines[0].split()[1])
+print("\n------------------------------------------------------\n")
+
+fl=True
+for i in range(len(results)):
+    for j in range(i, len(results)):
+        if abs(float(results[i])-float(results[j])) > 0.01:
+            print(
+                f"    Average length of {methods[i]} and {methods[j]} differs significantly (by {abs(float(results[i])-float(results[j]))})")
+            fl=False
+if fl:
+    print("Results coincide")
+
 print("\n======================================================>\n")
