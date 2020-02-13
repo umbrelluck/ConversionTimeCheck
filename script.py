@@ -20,7 +20,7 @@ cmd = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING
 system(cmd)
 
 timeByMethod, methods = {}, [
-    "\"stringstream\"", "\"to_string\"", "\"sprintf\"", "\"custom\"", "\"to_string\"", "\"lexical_cast\"", "\"QString\""]
+    "\"stringstream\"", "\"to_string\"", "\"sprintf\"", "\"custom\"", "\"lexical_cast\"", "\"QString\""]
 
 for i in range(1, 7):
     mini = float("inf")
@@ -48,5 +48,5 @@ for i in range(1, 7):
 
 print("\n\n======================================================>\n")
 for (key, value) in timeByMethod.items():
-    print(f"The miniaml time for {methods[key-1]} method is {value}mcs")
+    print(f"The miniaml time for {methods[key]} method is {value}mcs")
 print("\n======================================================>\n")
