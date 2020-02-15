@@ -82,12 +82,35 @@ std::tuple<int, int> strSprintf(std::vector<double> *numbers)
     std::cout << "Time of \"sprintf\" method is: " << to_us(end - start) << "mcs\n";
     return std::make_tuple(sum, count);
 }
+
+int convert(double x, std::string *s)
+{
+    (x > 0) ? *s = "" : *s = "-";
+    int tmp;
+    while (x > 1)
+    {
+        tmp = (int)x % 10;
+        *s += std::to_string(tmp);
+        x /= 10;
+        std::cout << s << std::endl;
+    }
+
+    return (*s).length();
+}
+
 std::tuple<int, int> strCustom(std::vector<double> *numbers)
 {
     int sum = 0, count = 0;
     auto start = get_current_time_fenced();
     std::string s;
-    // do job
+
+    for (auto x : *numbers)
+    {
+        sum += convert(x, &s);
+        count += 1;
+        // sum+=s.length();
+    }
+
     auto end = get_current_time_fenced();
     std::cout << "Time of \"custom\" method is: " << to_us(end - start) << "mcs\n";
     return std::make_tuple(sum, count);

@@ -66,7 +66,7 @@ for i in range(len(results)):
     for j in range(i, len(results)):
         if abs(float(results[i])-float(results[j])) > 0.01:
             print(
-                f"    Average length of {methods[i]} and {methods[j]} differs significantly (by {abs(float(results[i])-float(results[j]))})")
+                f" ! Average length of {methods[i]} and {methods[j]} differs significantly (by {abs(float(results[i])-float(results[j]))})")
             fl=False
 if fl:
     print("Results coincide")
