@@ -47,8 +47,8 @@ for i in range(6):
                 print(s)
 
     print(
-        f"The miniaml time for {methods[i-1]} method is {mini}mcs\n======================================================>\n\n")
-    timeByMethod[i-1] = mini
+        f"The miniaml time for {methods[i]} method is {mini}mcs\n======================================================>\n\n")
+    timeByMethod[i] = mini
 
 print("\n\n======================================================>\n")
 for (key, value) in timeByMethod.items():
