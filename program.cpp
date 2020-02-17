@@ -8,6 +8,7 @@
 #include <chrono>
 #include <atomic>
 #include <tuple>
+#include <numeric>
 #include <string>
 
 inline std::chrono::high_resolution_clock::time_point get_current_time_fenced()
@@ -86,14 +87,34 @@ std::tuple<int, int> strSprintf(std::vector<double> &numbers)
 int convert(double x, std::string &s)
 {
     (x > 0) ? s = "" : s = "-";
+    int zil = (int)x;
+    x = x - zil;
+    // std::string s;
     int tmp;
-    while (x > 1)
+    for (; zil > 0; zil /= 10)
     {
-        tmp = (int)x % 10;
-        s += std::to_string(tmp);
-        x /= 10;
-        std::cout << s << std::endl;
+        // tmp = (int)zil % 10;
+        s.push_back((zil % 10) + '0');
+
+        // s += std::to_string(tmp);
+        // x /= 10;
+        // std::cout << s << std::endl;
     }
+    while (ceil(x) != x)
+        x *= 10;
+    // std::cout << "Zil = " << x << "\n";
+    s.push_back('.');
+    zil = int(x);
+    // std::cout << "Zil = " << zil << "\n";
+    for (; zil > 0; zil /= 10)
+    {
+        // tmp = (int)zil % 10;
+        s.push_back((zil % 10) + '0');
+        // std::cout << "Here\n";
+        // s += std::to_string(tmp);
+        // x /= 10;
+    }
+    // std::cout << s << std::endl;
 
     return s.length();
 }
@@ -106,6 +127,7 @@ std::tuple<int, int> strCustom(std::vector<double> &numbers)
 
     for (auto x : numbers)
     {
+        s="";
         sum += convert(x, s);
         count += 1;
         // sum+=s.length();
