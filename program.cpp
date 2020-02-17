@@ -89,53 +89,36 @@ int convert(double x, std::string &s)
     (x > 0) ? s = "" : s = "-";
     int zil = (int)x;
     double frac = x - zil;
-    // std::string s;
-    int tmp;
     int modulo;
     for (modulo = 10; zil % modulo != zil; modulo *= 10)
         ;
     modulo /= 10;
-    for (; modulo >= 10; modulo /= 10)
-    {
-        // tmp = (int)zil % 10;
-        s.push_back((zil % modulo) + '0');
+    for (; modulo >= 10; zil %= modulo, modulo /= 10)
+        // {
+        // std::cout << "Dim " << zil / modulo << "\n";
+        // s.push_back((zil % modulo) + '0');
+        s.push_back((char)(zil / modulo) + '0');
+    // }
 
-        // s += std::to_string(tmp);
-        // x /= 10;
-        // std::cout << s << std::endl;
-    // std::cout << "Zil = " << frac << "\n";
-    // std::cout << "New " << am << "\n";
-    }
     while (ceil(frac) != frac)
         frac *= 10;
     if (frac != 0)
         s.push_back('.');
 
     size_t am = (size_t)floor(frac);
-    for (modulo = 10; am % modulo != am; modulo *= 10)
+    size_t modulo_t;
+    // std::cout << "Zil = " << s << "\n";
+    for (modulo_t = 10; am % modulo_t != am; modulo_t *= 10)
         ;
-    modulo /= 10;
-    for (; modulo >= 10; modulo /= 10)
+    modulo_t /= 10;
+    for (; modulo_t >= 10; am %= 10, modulo_t /= 10)
     {
-        // tmp = (int)zil % 10;
-        s.push_back((am % modulo) + '0');
-
-        // s += std::to_string(tmp);
-        // x /= 10;
-        // std::cout << s << std::endl;
+        // s.push_back((am % modulo) + '0');
+        std::cout << "Smth " << am / modulo_t << "\n";
+        s.push_back((char)((int)(am / modulo_t)) + '0');
     }
 
-    // zil = (int)frac;
-    // std::cout << "Zil = " << zil << "\n";
-    // for (; zil > 0; zil /= 10)
-    // {
-    //     // tmp = (int)zil % 10;
-    //     s.push_back((zil % 10) + '0');
-    //     // std::cout << "Here\n";
-    //     // s += std::to_string(tmp);
-    //     // x /= 10;
-    // }
-    // // std::cout << s << std::endl;
+    std::cout << s << "\n";
 
     return s.length();
 }
@@ -151,7 +134,6 @@ std::tuple<int, int> strCustom(std::vector<double> &numbers)
         s = "";
         sum += convert(x, s);
         count += 1;
-        // sum+=s.length();
     }
 
     auto end = get_current_time_fenced();
