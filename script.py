@@ -1,5 +1,5 @@
 from random import uniform
-from os import system, listdir, remove
+from os import system, listdir, remove, name
 import subprocess
 import time
 from regex import search
@@ -14,13 +14,17 @@ for file in listdir('./'):
     if "output" in file:
         remove(file)
 
+# if name == "nt":
+#     cmd = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G \"Visual Studio 15 2017\" && cmake --build ./build --config Release --target all"
+# else:
+#     cmd = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G \"Unix Makefiles\"&&\
+#         cmake --build ./build --config Release --target all"
 
-cmd = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G Ninja;\
-    cmake --build ./build --config Release --target all -- -j 14"
+cmd = f"cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G \"{'Visual Studio 15 2017' if name == 'nt' else 'Unix Makefiles'}\" && cmake --build ./build --config Release --target all"
 system(cmd)
 
 timeByMethod, methods = {}, [
-    "\"stringstream\"", "\"to_string\"", "\"sprintf\"", "\"custom\"", "\"lexical_cast\"", "\"QString\""]
+    '"stringstream"', '"to_string"', '"sprintf"', '"custom"', '"lexical_cast"', '"QString"']
 
 for i in range(6):
     mini = float("inf")
@@ -61,13 +65,13 @@ for i in range(6):
         results.append(lines[0].split()[1])
 print("\n------------------------------------------------------\n")
 
-fl=True
+fl = True
 for i in range(len(results)):
     for j in range(i, len(results)):
         if abs(float(results[i])-float(results[j])) > 0.01:
             print(
                 f" ! Average length of {methods[i]} and {methods[j]} differs significantly (by {abs(float(results[i])-float(results[j]))})")
-            fl=False
+            fl = False
 if fl:
     print("Results coincide")
 
