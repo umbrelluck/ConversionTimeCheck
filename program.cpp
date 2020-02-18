@@ -95,30 +95,19 @@ int convert(double x, std::string &s)
         ;
     modulo /= 10;
     for (; modulo >= 1; zil %= modulo, modulo /= 10)
-        // {
-        // std::cout << "Dim " << zil / modulo << "\n";
-        // s.push_back((zil % modulo) + '0');
         s.push_back((zil / modulo) + '0');
-    // }
 
     while (ceil(frac) != frac)
         frac *= 10;
     if (frac != 0)
         s.push_back('.');
 
-    zil= (size_t)floor(frac);
-    // std::cout << "Zil = " << am << "\n";
+    zil = (size_t)floor(frac);
     for (modulo = 10; zil % modulo != zil; modulo *= 10)
         ;
     modulo /= 10;
     for (; modulo >= 1; zil %= modulo, modulo /= 10)
-    {
-        // s.push_back((am % modulo) + '0');
-        // std::cout << "Smth " << am / modulo_t << "\n";
         s.push_back((zil / modulo) + '0');
-    }
-
-    // std::cout << s << "\n";
 
     return s.length();
 }
