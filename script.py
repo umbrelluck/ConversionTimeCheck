@@ -7,18 +7,12 @@ from regex import search
 fileInputName = "input.txt"
 with open(fileInputName, 'w') as file:
     for i in range(100000):
-        file.write(str(uniform(0, 10000)) + " ")
+        file.write(str(uniform(-10000, 10000)) + " ")
     file.write("-23.5e-3")
 
 for file in listdir('./'):
     if "output" in file:
         remove(file)
-
-# if name == "nt":
-#     cmd = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G \"Visual Studio 15 2017\" && cmake --build ./build --config Release --target all"
-# else:
-#     cmd = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G \"Unix Makefiles\"&&\
-#         cmake --build ./build --config Release --target all"
 
 cmd = f"cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G \"{'Visual Studio 15 2017' if name == 'nt' else 'Unix Makefiles'}\" && cmake --build ./build --config Release --target all"
 system(cmd)
@@ -52,7 +46,7 @@ for i in range(6):
 
 print("\n\n======================================================>\n")
 for (key, value) in timeByMethod.items():
-    print(f"The miniaml time for {methods[key]} method is {value}mcs")
+    print(f"The minimal time for {methods[key]} method is {value}mcs")
 
 results = []
 for i in range(6):

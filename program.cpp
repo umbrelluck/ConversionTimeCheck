@@ -87,17 +87,18 @@ std::tuple<int, int> strSprintf(std::vector<double> &numbers)
 int convert(double x, std::string &s)
 {
     (x > 0) ? s = "" : s = "-";
-    int zil = (int)x;
+    x = abs(x);
+    size_t zil = (size_t)x;
     double frac = x - zil;
-    int modulo;
+    size_t modulo;
     for (modulo = 10; zil % modulo != zil; modulo *= 10)
         ;
     modulo /= 10;
-    for (; modulo >= 10; zil %= modulo, modulo /= 10)
+    for (; modulo >= 1; zil %= modulo, modulo /= 10)
         // {
         // std::cout << "Dim " << zil / modulo << "\n";
         // s.push_back((zil % modulo) + '0');
-        s.push_back((char)(zil / modulo) + '0');
+        s.push_back((zil / modulo) + '0');
     // }
 
     while (ceil(frac) != frac)
@@ -105,20 +106,19 @@ int convert(double x, std::string &s)
     if (frac != 0)
         s.push_back('.');
 
-    size_t am = (size_t)floor(frac);
-    size_t modulo_t;
-    // std::cout << "Zil = " << s << "\n";
-    for (modulo_t = 10; am % modulo_t != am; modulo_t *= 10)
+    zil= (size_t)floor(frac);
+    // std::cout << "Zil = " << am << "\n";
+    for (modulo = 10; zil % modulo != zil; modulo *= 10)
         ;
-    modulo_t /= 10;
-    for (; modulo_t >= 10; am %= 10, modulo_t /= 10)
+    modulo /= 10;
+    for (; modulo >= 1; zil %= modulo, modulo /= 10)
     {
         // s.push_back((am % modulo) + '0');
-        std::cout << "Smth " << am / modulo_t << "\n";
-        s.push_back((char)((int)(am / modulo_t)) + '0');
+        // std::cout << "Smth " << am / modulo_t << "\n";
+        s.push_back((zil / modulo) + '0');
     }
 
-    std::cout << s << "\n";
+    // std::cout << s << "\n";
 
     return s.length();
 }
