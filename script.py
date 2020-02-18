@@ -14,7 +14,7 @@ for file in listdir('./'):
     if "output" in file:
         remove(file)
 
-cmd = f"cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G \"{'Visual Studio 15 2017' if name == 'nt' else 'Unix Makefiles'}\" && cmake --build ./build --config Release --target all"
+cmd = f"cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G \"{'Unix Makefiles'}\" && cmake --build ./build --config Release --target all"
 system(cmd)
 
 timeByMethod, methods = {}, [
