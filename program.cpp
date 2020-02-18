@@ -83,7 +83,6 @@ std::tuple<int, int> strSprintf(std::vector<double> &numbers)
     std::cout << "Time of \"sprintf\" method is: " << to_us(end - start) << "mcs\n";
     return std::make_tuple(sum, count);
 }
-
 int convert(double x, std::string &s)
 {
     (x > 0) ? s = "" : s = "-";
@@ -102,16 +101,15 @@ int convert(double x, std::string &s)
     if (frac != 0)
         s.push_back('.');
 
-    zil = (size_t)floor(frac);
+    zil= (size_t)floor(frac);
     for (modulo = 10; zil % modulo != zil; modulo *= 10)
         ;
     modulo /= 10;
     for (; modulo >= 1; zil %= modulo, modulo /= 10)
-        s.push_back((zil / modulo) + '0');
+    s.push_back((zil / modulo) + '0');
 
     return s.length();
 }
-
 std::tuple<int, int> strCustom(std::vector<double> &numbers)
 {
     int sum = 0, count = 0;

@@ -26,7 +26,7 @@ for i in range(6):
     cmd = f"./build/Program {i+1} {fileInputName} {fileOutputName}"
 
     # change range when ready
-    for trial in range(10):
+    for trial in range(100):
         process = subprocess.Popen(
             cmd.split(), stdout=subprocess.PIPE)
         while True:
